@@ -34,6 +34,13 @@ public class UserResources {
         return ResponseEntity.ok().body(new UserDto(obj));
     }
 
+    @RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable String id) throws BadRequestException {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody UserDto objDto) {
         User obj = service.fromDto(objDto);

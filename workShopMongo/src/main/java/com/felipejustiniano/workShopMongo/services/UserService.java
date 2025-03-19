@@ -3,7 +3,6 @@ package com.felipejustiniano.workShopMongo.services;
 import com.felipejustiniano.workShopMongo.domain.User;
 import com.felipejustiniano.workShopMongo.dto.UserDto;
 import com.felipejustiniano.workShopMongo.repository.UserRepository;
-import com.felipejustiniano.workShopMongo.services.exception.ObjectNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +29,11 @@ public class UserService {
 
     public User insert(User obj) {
         return repo.insert(obj);
+    }
+
+    public void delete(String id) throws BadRequestException {
+        findById(id);
+        repo.deleteById(id);
     }
 
     public User fromDto(UserDto objDto) {

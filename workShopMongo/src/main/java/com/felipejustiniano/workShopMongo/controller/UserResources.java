@@ -40,6 +40,14 @@ public class UserResources {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody UserDto objDto, @PathVariable String id) throws BadRequestException {
+        User obj = service.fromDto(objDto);
+        obj.setId(id);
+        obj = service.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody UserDto objDto) {

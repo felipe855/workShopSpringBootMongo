@@ -1,6 +1,7 @@
 package com.felipejustiniano.workShopMongo.controller;
 
 
+import com.felipejustiniano.workShopMongo.domain.Post;
 import com.felipejustiniano.workShopMongo.dto.UserDto;
 import com.felipejustiniano.workShopMongo.services.UserService;
 import org.apache.coyote.BadRequestException;
@@ -48,7 +49,6 @@ public class UserResources {
         return ResponseEntity.noContent().build();
     }
 
-
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody UserDto objDto) {
         User obj = service.fromDto(objDto);
@@ -57,4 +57,9 @@ public class UserResources {
         return ResponseEntity.created(uri).build();
     }
 
+    @RequestMapping(value="/{id}/posts",method=RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) throws BadRequestException {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
 }
